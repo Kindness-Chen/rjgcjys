@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <!-- Twitter meta-->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:site" content="@pratikborsadiya">
+    <meta property="twitter:creator" content="@pratikborsadiya">
+    <!-- Open Graph Meta-->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Vali Admin">
+    <meta property="og:title" content="Vali - Free Bootstrap 4 admin theme">
+    <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
+    <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
+    <meta property="og:description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <title>软件工程教研室工作管理系统</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="css/main.css" th:href="@{/static/css/main.css}">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="app sidebar-mini">
+<!-- Navbar-->
+<header class="app-header"><a class="app-header__logo" href="">RJGCJYS</a>
+    <!-- 边栏切换按钮,隐藏或展示边栏--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+    <!-- Navbar Right Menu-->
+<!--    <h1 style="color: white;margin-left: 300px">软件工程教研室工作管理系统</h1>-->
+    <ul class="app-nav">
+        <li class="app-search">
+            <input class="app-search__input" type="search" placeholder="Search">
+            <button class="app-search__button"><i class="fa fa-search"></i></button>
+        </li>
+        <!-- User Menu-->
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+            <ul class="dropdown-menu settings-menu dropdown-menu-right">
+                <li><a class="dropdown-item" href="../tem/page-user.html" th:href="@{/studentsMain}"><i class="fa fa-cog fa-lg"></i> 设置</a></li>
+                <li><a class="dropdown-item" href="../common/login.html" th:href="@{/tologin}"><i class="fa fa-sign-out fa-lg"></i> 退出登录</a></li>
+            </ul>
+        </li>
+    </ul>
+</header>
+<!-- Sidebar menu-->
+<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+<aside class="app-sidebar">
+    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" th:src="@{/static/images/cityLogo.png}">
+        <div>
+            <p class="app-sidebar__user-name" th:text="${session.user1[0].name}"></p>
+            <p class="app-sidebar__user-designation">欢迎您</p>
+        </div>
+    </div>
+    <ul class="app-menu">
+        <li><a class="app-menu__item active " href="/main" th:href="@{/studentsMain}"><i class="app-menu__icon fa fa-home"></i><span class="app-menu__label">主页</span></a></li>
+        <li class="treeview "><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-book"></i><span class="app-menu__label">作业管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/word}"><i class="icon fa fa-circle-o"></i>上传作业</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/findWordByUserName(username=${session.user1[0].username})}"><i class="icon fa fa-circle-o"></i>查看作业</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-bookmark"></i><span class="app-menu__label">课程设计管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/courseDesign}"><i class="icon fa fa-circle-o"></i>上传课程设计</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/findCourseDesignByUsername/}+ ${session.user1[0].username}"><i class="icon fa fa-circle-o"></i>查看课程设计</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-file-excel-o"></i><span class="app-menu__label">成绩管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/studentsFindAchievement}"><i class="icon fa fa-circle-o"></i>查看成绩文档</a></li>
+            </ul>
+        </li>
+    </ul>
+</aside>
+<main class="app-content">
+    <div class="row user">
+        <div class="col-md-12">
+            <div class="profile">
+                <div class="info"><img class="user-img" th:src="@{/static/images/studentLogo.png}">
+                    <h4 th:text="${session.user1[0].name}"></h4>
+                    <p>学生</p>
+                </div>
+                <img class="cover-image" th:src="@{static/images/cityMain.png}">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="tile p-0">
+                <ul class="nav flex-column nav-tabs user-tabs">
+                    <li class="nav-item"><a class="nav-link active" href="#user-settings" data-toggle="tab">设置</a></li>
+                </ul>
+                <div class="card mb-3 text-white bg-primary">
+                    <div class="card-body">
+                        <blockquote class="card-blockquote">
+                            <p>当前老师已经批改的作业数量为：</p>
+                            <footer th:text="${session.countWord}">
+                            </footer>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="card mb-3 text-white bg-info">
+                    <div class="card-body">
+                        <blockquote class="card-blockquote">
+                            <p>当前老师已经批改的课程设计为：</p>
+                            <footer th:text="${session.countCourseDesign}">
+                            </footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="tab-content">
+                <div class="tab-pane active" id="user-settings">
+                    <div class="tile user-settings">
+                        <h4 class="line-head">修改用户密码</h4>
+                        <form method="get" th:action="@{/updatePassword/}+ ${session.user1[0].uid}" id="updatePassword">
+                            <div class="row">
+                                <div class="col-md-8 mb-4">
+                                    <label><em style="color: red;">*</em>旧密码</label>
+                                    <input id="password_0" name="password0" class="form-control" type="password">
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-8 mb-4">
+                                    <label><em style="color: red;">*</em>新密码</label>
+                                    <input id="password_1" name="password1" class="form-control" type="password">
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-8 mb-4">
+                                    <label><em style="color: red;">*</em>再次输入新密码</label>
+                                    <input id="password" name="password" class="form-control" type="password">
+                                </div>
+                            </div>
+                            <div class="row mb-10">
+                                <div class="col-md-12">
+                                    <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i> 修改</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Essential javascripts for application to work-->
+<script src="js/jquery-3.3.1.min.js" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+<script src="js/popper.min.js" th:src="@{/static/js/popper.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/static/js/bootstrap.min.js}"></script>
+<script src="js/main.js" th:src="@{/static/js/main.js}"></script>
+<script  src="js/jquery-form.js" th:src="@{/static/js/jquery-form.js}"></script>
+<!-- The javascript plugin to display page loading on top-->
+<script src="js/plugins/pace.min.js" th:src="@{/static/js/plugins/pace.min.js}"></script>
+<!-- Page specific javascripts-->
+<script type="text/javascript" src="js/plugins/chart.js" th:src="@{/static/js/plugins/chart.js}"></script>
+<!-- Google analytics script-->
+<script type="text/javascript">
+    if(document.location.hostname == 'pratikborsadiya.in') {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-72504830-1', 'auto');
+        ga('send', 'pageview');
+    }
+</script>
+<script type="text/javascript" th:inline="javascript">
+    $(function() {
+        $("#updatePassword").bind("submit", function(){
+            var password_0 = $("#password_0").val();
+            var password_1 = $("#password_1").val();
+            var password = $("#password").val();
+
+            if (password_0.length > 15||password.length > 15 || password_1.length > 15){
+                alert("密码长度超过15位");
+                return false;
+            }
+        });
+
+        $("#updatePassword").ajaxForm(function (data) {
+            console.log(data);
+            if (data == "旧密码不能为空!!!") {
+                alert("旧密码不能为空!!!");
+            } else if (data == "旧密码错误，请重新输入!!!") {
+                alert("旧密码错误，请重新输入!!!");
+            } else if (data == "新密码不能为空!!!") {
+                alert("新密码不能为空!!!");
+            } else if (data == "输入两次的新密码不一致，请重新输入!!!") {
+                alert("输入两次的新密码不一致，请重新输入!!!");
+            } else if (data == "修改密码成功!!!") {
+                alert("修改密码成功!!!");
+                window.location.reload();
+            }
+        });
+    });
+
+
+</script>
+</body>
+</html>

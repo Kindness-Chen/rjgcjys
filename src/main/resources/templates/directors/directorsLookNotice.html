@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <!-- Twitter meta-->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:site" content="@pratikborsadiya">
+    <meta property="twitter:creator" content="@pratikborsadiya">
+    <!-- Open Graph Meta-->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Vali Admin">
+    <meta property="og:title" content="Vali - Free Bootstrap 4 admin theme">
+    <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
+    <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
+    <meta property="og:description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <title>软件工程教研室工作管理系统</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="css/main.css" th:href="@{/static/css/main.css}">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        td{
+            white-space:nowrap;
+            overflow:hidden;
+            word-break:keep-all;
+            text-overflow:ellipsis;
+        }
+        table{
+            table-layout:fixed;
+        }
+    </style>
+</head>
+<body class="app sidebar-mini">
+<!-- Navbar-->
+<header class="app-header"><a class="app-header__logo" href="">RJGCJYS</a>
+    <!-- 边栏切换按钮,隐藏或展示边栏--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+    <!-- Navbar Right Menu-->
+    <ul class="app-nav">
+        <li class="app-search">
+            <input class="app-search__input" type="search" placeholder="Search">
+            <button class="app-search__button"><i class="fa fa-search"></i></button>
+        </li>
+        <!-- User Menu-->
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+            <ul class="dropdown-menu settings-menu dropdown-menu-right">
+                <li><a class="dropdown-item" href="../tem/page-user.html" th:href="@{/directorsMain}"><i class="fa fa-cog fa-lg"></i> 设置</a></li>
+                <li><a class="dropdown-item" href="../common/login.html" th:href="@{/tologin}"><i class="fa fa-sign-out fa-lg"></i> 退出登录</a></li>
+            </ul>
+        </li>
+    </ul>
+</header>
+<!-- 查看通知-->
+<div class="modal" id="lookNotice" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">查看通知</h4>
+            </div>
+            <div class="modal-body">
+                <form id="edit_items_form">
+                    <div class="form-group">
+                        <h1 class="text-center">
+                            <font style="vertical-align: central;"><font style="vertical-align: central;" id="title"></font></font>
+                        </h1>
+                    </div>
+                    <div class="form-group">
+                        <div class="text-center">
+                            <footer class="blockquote-footer">发布人:
+                                <cite title="Source Title" id="name"></cite>
+                            </footer>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="text-center">
+                            <footer class="blockquote-footer">发布日期:
+                                <cite title="Source Title" id="deliverDate"></cite>
+                            </footer>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div id="summernote" name="notice"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- 编辑通知-->
+<div class="modal" id="UpdateNotice" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">修改通知</h4>
+            </div>
+                <input class="form-control" id="nid" name="nid" type="text" hidden="hidden">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-form-label" for="title1"><em style="color: red;">*</em>标题</label>
+                        <input class="form-control" id="title1" name="title1" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="name1">发布人</label>
+                        <input class="form-control" id="name1" name="name1" type="text" readonly="readonly" th:value="${session.user1[0].name}">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="notice2"><em style="color: red;">*</em>发布内容</label>
+                        <input class="form-control" id="notice2" name="notice2" hidden>
+                        <div id="summernote1" name="summernote1"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="deliverDate1"><em style="color: red;">*</em>发布日期</label>
+                        <input class="form-control" id="deliverDate1" name="deliverDate1" type="date">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button  class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button  class="btn btn-primary" id="directorsUpdateNotice">修改</button>
+                </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- 发送短信通知-->
+<div class="modal" id="sendNotice" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">发送短信</h4>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/directorsSendNotice}" method="post" id="directorsSendNotice">
+                    <div class="form-group">
+                        <label class="col-form-label" for="notice1">发送内容：</label>
+                        <textarea class="form-control" id="notice1" name="notice1"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label" for="name">发送对象：</label>
+                        <select class="form-control" id="name" name="name">
+                            <option value="">全部</option>
+                            <option th:each="user:${users}"  th:text="${user.name}"></option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button class="btn btn-primary" type="submit">发送</button>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Sidebar menu-->
+<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+<aside class="app-sidebar">
+    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" th:src="@{/static/images/cityLogo.png}">
+        <div>
+            <p class="app-sidebar__user-name" th:text="${session.user1[0].name}"></p>
+            <p class="app-sidebar__user-designation">欢迎您</p>
+        </div>
+    </div>
+    <ul class="app-menu">
+        <li><a class="app-menu__item" href="/main" th:href="@{/directorsMain}"><i class="app-menu__icon fa fa-home"></i><span class="app-menu__label">主页</span></a></li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-flask"></i><span class="app-menu__label">教学任务管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/toTeachersAddStudy}"><i class="icon fa fa-circle-o"></i>添加教学任务</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/directorsFindTrainAll}"><i class="icon fa fa-circle-o"></i>查看教学任务</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/toDirectorsAddSubject}"><i class="icon fa fa-circle-o"></i>添加课程</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/findSubjectAll}"><i class="icon fa fa-circle-o"></i>查看课程</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-calendar"></i><span class="app-menu__label">教学周历管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/directorsFindWeekByStatus}"><i class="icon fa fa-circle-o"></i>查看待审核教学周历</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/findHaveWeekByStatus}"><i class="icon fa fa-circle-o"></i>查看已经审核教学周历</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-file-powerpoint-o"></i><span class="app-menu__label">教学资料管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/findPPTAll}"><i class="icon fa fa-circle-o"></i>查看教学资料</a></li>
+            </ul>
+        </li>
+        <li class="treeview "><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-book"></i><span class="app-menu__label">学生作业样板管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item " href="#" th:href="@{/findModelAll}"><i class="icon fa fa-circle-o"></i>查看待审核作业样板</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/findModelByStatus}"><i class="icon fa fa-circle-o"></i>查看已经审核作业样板</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-exchange"></i><span class="app-menu__label">调课申请管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/directorsFindLeave}"><i class="icon fa fa-circle-o"></i>查看待审核调课申请</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/directorsFindHaveLeave}"><i class="icon fa fa-circle-o"></i>查看已经审核调课申请</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-handshake-o"></i><span class="app-menu__label">互评管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/directorsLookMutual}"><i class="icon fa fa-circle-o"></i>教研室主任年度评分</a></li>
+            </ul>
+        </li>
+        <li class="treeview is-expanded"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-bullhorn"></i><span class="app-menu__label">通知管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/deliverNotice}"><i class="icon fa fa-circle-o"></i>发布通知</a></li>
+                <li><a class="treeview-item active" href="#" th:href="@{/findNoticeAll}"><i class="icon fa fa-circle-o"></i>查看通知</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">会议管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/findMeetingAll}"><i class="icon fa fa-circle-o"></i>查看会议记录</a></li>
+            </ul>
+        </li>
+    </ul>
+</aside>
+<main class="app-content">
+    <div class="app-title">
+        <div>
+            <h1>软件工程教研室工作管理系统</h1>
+            <p>教研室主任用于查看已经发布的通知</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered" id="sampleTable" style="width: 1190px;">
+                            <thead>
+                            <tr>
+                                <th style="width: 400px">标题</th>
+                                <th>发布人</th>
+                                <th>发布日期</th>
+                                <th style="width: 170px">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="notice:${notices}">
+                                <td th:title="${notice.title}" th:text="${notice.title}"></td>
+                                <td th:text="${notice.name}"></td>
+                                <td th:text="${notice.deliverDate}"></td>
+<!--                                <td th:text="${#dates.format(notice.deliverDate, 'yyyy-MM-dd')}" ></td>-->
+                                <td>
+                                    <a  class="btn-sm btn-primary " th:onclick="'javascript:findNoticeByNid('+${notice.nid}+');'">查看</a>
+                                    <a  class="btn-sm btn-success" th:onclick="'javascript:findNoticeByNid2('+${notice.nid}+');'">编辑</a>
+                                    <a class="btn-sm btn-danger" th:onclick="'javascript:deleteNoticeByNid('+${notice.nid}+');'">删除</a>
+                                    <a class="btn-sm btn-warning" th:onclick="'javascript:findNoticeByNid1('+${notice.nid}+');'">发短信</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Essential javascripts for application to work-->
+<script src="js/jquery-3.3.1.min.js" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+<script src="js/popper.min.js" th:src="@{/static/js/popper.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/static/js/bootstrap.min.js}"></script>
+<script src="js/main.js" th:src="@{/static/js/main.js}"></script>
+<script  src="js/jquery-form.js" th:src="@{/static/js/jquery-form.js}"></script>
+<!-- The javascript plugin to display page loading on top-->
+<script src="js/plugins/pace.min.js" th:src="@{/static/js/plugins/pace.min.js}"></script>
+<!-- Page specific javascripts-->
+<!-- Data table plugin-->
+<script type="text/javascript"  th:src="@{/static/js/plugins/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js" th:src="@{/static/js/plugins/dataTables.bootstrap.min.js}"></script>
+<!-- include summernote -->
+<link type="text/css" rel="stylesheet" href="${ctx}/components/summernote/summernote.css" th:href="@{/static/summernote/summernote.css}" />
+<script type="text/javascript" src="${ctx}/components/summernote/summernote.js" th:src="@{/static/summernote/summernote.js}"></script>
+<script type="text/javascript" src="${ctx}/components/summernote/lang/summernote-zh-CN.js" th:src="@{/static/summernote/summernote-zh-CN.js}"></script>
+<script type="text/javascript"  th:href="@{/static/css/bootstrap.css}"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function() {
+        $('#sampleTable').dataTable( {
+            "oLanguage": {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            }
+        } );
+    } );
+
+    //summernote编译器的加载配置
+    $('#summernote').summernote('disable');
+    $("#summernote").summernote({
+        lang : 'zh-CN',// 语言
+        height : 400, // 高度
+        minHeight : 300, // 最小高度
+        placeholder : '请输入通知内容', // 提示
+        // summernote自定义配置
+        toolbar: [
+            ['operate', ['undo','redo']],
+            ['magic',['style']],
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['para', ['height','fontsize','ul', 'ol', 'paragraph']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['color', ['color']],
+            ['layout',['fullscreen','codeview']],
+        ],
+    });
+
+    $("#summernote1").summernote({
+        lang : 'zh-CN',// 语言
+        height : 400, // 高度
+        minHeight : 300, // 最小高度
+        placeholder : '请输入通知内容', // 提示
+        // summernote自定义配置
+        toolbar: [
+            ['operate', ['undo','redo']],
+            ['magic',['style']],
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['para', ['height','fontsize','ul', 'ol', 'paragraph']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['color', ['color']],
+            ['layout',['fullscreen','codeview']],
+        ],
+    });
+
+    //查看通知
+    function findNoticeByNid(nid) {
+        $.ajax({
+            type:"get",
+            url:"findNoticeByNid",
+            dataType:"json",
+            data:{nid:nid},
+            success:function (data) {
+                console.log(data.notice);
+                $("#title").html(data.title);
+                $("#deliverDate").html(data.deliverDate);
+                $("#name").html(data.name);
+                $("#summernote").summernote('code',data.notice);
+                $("#lookNotice").modal('show');
+            }
+        });
+    }
+    //查看修改通知
+    function findNoticeByNid2(nid) {
+        $.ajax({
+            type:"get",
+            url:"findNoticeByNid",
+            dataType:"json",
+            data:{nid:nid},
+            success:function (data) {
+                $("#nid").val(data.nid);
+                $("#title1").val(data.title);
+                $("#name1").val(data.name);
+                $("#summernote1").summernote('code',data.notice);
+                $("#deliverDate1").val(data.deliverDate);
+                $("#UpdateNotice").modal('show');
+            }
+        });
+    }
+    $("#directorsUpdateNotice").click(function () {
+        var nid = $("#nid").val();
+        var title = $("#title1").val();
+        var name = $("#name1").val();
+        var str= $("#summernote1").summernote("code");
+        var notice = str;
+        var deliverDate = $("#deliverDate1").val();
+        $.ajax({
+            type:"post",
+            url:"directorsUpdateNotice",
+            dataType:"json",
+            data:{nid:nid,title:title,name:name,notice:notice,deliverDate:deliverDate},
+            success:function (data) {
+                if(data == 1){
+                    alert("标题不能为空,请输入标题!!!");
+                }else if(data == 2){
+                    alert("发布的内容不能为空,请添加内容!!!");
+                }else if (data == 3){
+                    alert("发布的日期格式不对,请重新输入日期!!!");
+                } else if(data == 4){
+                    alert("修改成功!!!");
+                    window.location.reload();
+                }
+            }
+        })
+    });
+    //删除通知
+    function deleteNoticeByNid(nid) {
+        if (confirm("确定要删除该记录吗？")) {
+            $.ajax({
+                type: "delete",
+                url: "deleteNoticeByNid",
+                dataType: "json",
+                data: {nid: nid},
+                success: function (data) {
+                    if (data==1){
+                        alert("删除成功!!!");
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+    }
+
+    //发送短信
+    function findNoticeByNid1(nid) {
+        $.ajax({
+            type:"get",
+            url:"findNoticeByNid",
+            dataType:"json",
+            data:{nid:nid},
+            success:function (data) {
+                $("#summernote").summernote('code',data.notice);
+                var code=$("#summernote").summernote("code");
+                var text = $('<div>'+code+'</div>').text();
+                $("#notice1").val(text);
+                $("#sendNotice").modal('show');
+            }
+        });
+    }
+
+    $(function(){
+        $("#directorsSendNotice").ajaxForm(function(data){
+            if(data=="成功"){
+                alert("发送短信成功！！！");
+                window.location.reload();
+            }else if(data=="失败"){
+                alert("发送短信失败！！！");
+                window.location.reload();
+            }
+        });
+    });
+</script>
+<!-- 谷歌分析script-->
+<script type="text/javascript">
+    if(document.location.hostname == 'pratikborsadiya.in') {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-72504830-1', 'auto');
+        ga('send', 'pageview');
+    }
+</script>
+</body>
+</html>

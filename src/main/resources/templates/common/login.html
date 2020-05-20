@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 主css-->
+    <link rel="stylesheet" type="text/css" href="css/main.css" th:href="@{/static/css/main.css}">
+    <!-- 字体图标css-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>软件工程教研室工作管理系统</title>
+  </head>
+  <body>
+    <section class="material-half-bg">
+      <div class="cover"></div>
+    </section>
+    <section class="login-content">
+      <div class="logo">
+        <h1>软件工程教研室工作管理系统</h1>
+      </div>
+      <div class="login-box">
+        <form class="login-form" th:action="@{/login/findUserByIdentity}" method="post">
+          <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>用户登录</h3>
+          <!--判断-->
+          <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+          <div class="form-group">
+            <label class="control-label">账号</label>
+            <input class="form-control" id="username" name="username" type="text" placeholder="请输入账号" autofocus>
+          </div>
+          <div class="form-group">
+            <label class="control-label">密码</label>
+            <input class="form-control" id="password" name="password" type="password" placeholder="请输入密码">
+          </div>
+          <div class="form-group">
+            <div class="utility">
+              <div class="radio">
+                <label class="radio-inline"><input type="radio" name="identity" value="学生" checked >学生</label>
+              </div>
+              <div class="radio">
+                <label class="radio-inline"><input type="radio" name="identity" value="老师">老师</label>
+              </div>
+              <div class="radio disabled">
+                <label class="radio-inline"><input type="radio" name="identity" value="教研室主任">教研室主任</label>
+              </div>
+              <div class="radio disabled">
+                <label class="radio-inline"><input type="radio" name="identity" value="管理员">管理员</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group btn-container">
+            <button class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>登录</button>
+          </div>
+        </form>
+      </div>
+    </section>
+    <!-- 应用程序工作所必需的javascripts-->
+    <script src="js/jquery-3.3.1.min.js" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+    <script src="js/popper.min.js" th:src="@{/static/js/popper.min.js}"></script>
+    <script src="js/bootstrap.min.js" th:src="@{/static/js/bootstrap.min.js}"></script>
+    <script src="js/main.js" th:src="@{/static/js/main.js}"></script>
+    <!-- 在顶部显示页面加载的javascript插件-->
+    <script src="js/plugins/pace.min.js" th:src="@{/static/js/plugins/pace.min.js}"></script>
+    <script type="text/javascript">
+
+    </script>
+  </body>
+</html>

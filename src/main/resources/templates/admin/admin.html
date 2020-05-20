@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+  <head>
+    <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <!-- Twitter meta-->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:site" content="@pratikborsadiya">
+    <meta property="twitter:creator" content="@pratikborsadiya">
+    <!-- Open Graph Meta-->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Vali Admin">
+    <meta property="og:title" content="Vali - Free Bootstrap 4 admin theme">
+    <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
+    <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
+    <meta property="og:description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <title>软件工程教研室工作管理系统</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="css/main.css" th:href="@{/static/css/main.css}">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      td{
+        white-space:nowrap;
+        overflow:hidden;
+        word-break:keep-all;
+        text-overflow:ellipsis;
+      }
+      table{
+        table-layout:fixed;
+      }
+    </style>
+  </head>
+  <body class="app sidebar-mini">
+    <!-- Navbar-->
+    <header class="app-header"><a class="app-header__logo" href="">RJGCJYS</a>
+      <!-- 边栏切换按钮,隐藏或展示边栏--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+      <!-- Navbar Right Menu-->
+      <ul class="app-nav">
+        <li class="app-search">
+          <input class="app-search__input" type="search" placeholder="Search">
+          <button class="app-search__button"><i class="fa fa-search"></i></button>
+        </li>
+        <!-- User Menu-->
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+          <ul class="dropdown-menu settings-menu dropdown-menu-right">
+            <li><a class="dropdown-item" href="../tem/page-user.html" th:href="@{/main}"><i class="fa fa-cog fa-lg"></i> 设置</a></li>
+            <li><a class="dropdown-item" href="../common/login.html" th:href="@{/tologin}"><i class="fa fa-sign-out fa-lg"></i> 退出登录</a></li>
+          </ul>
+        </li>
+      </ul>
+    </header>
+    <!-- Sidebar menu-->
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+    <aside class="app-sidebar">
+      <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" th:src="@{/static/images/cityLogo.png}">
+        <div>
+<!--          <p class="app-sidebar__user-name" th:text="${session.user1[0].name}"></p>-->
+          <p class="app-sidebar__user-designation">欢迎您</p>
+        </div>
+      </div>
+      <ul class="app-menu">
+        <li><a class="app-menu__item " href="/main" th:href="@{/main}"><i class="app-menu__icon fa fa-home"></i><span class="app-menu__label">主页</span></a></li>
+        <li class="treeview is-expanded"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-user"></i><span class="app-menu__label">用户管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+          <ul class="treeview-menu">
+            <li><a class="treeview-item active" href="#" th:href="@{/findUserAll}"><i class="icon fa fa-circle-o"></i>新增用户</a></li>
+          </ul>
+        </li>
+      </ul>
+    </aside>
+    <main class="app-content">
+      <div class="app-title">
+        <div>
+          <h1>软件工程教研室工作管理系统</h1>
+          <p>管理员添加删除修改用户信息</p>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="button" id="btn_add"><i class="fa fa-plus"></i>新增用户</button>
+      <!--   新增用户   -->
+      <div class="modal" id="insertmymodal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">新增</h4>
+            </div>
+            <div class="modal-body">
+              <form>
+              <div class="form-group">
+                <label for="username_0" class="control-label"><em style="color: red;">*</em>账号:</label>
+                <input id="username_0" name="username" type="text" class="form-control" >
+              </div>
+              <div class="form-group">
+                <label for="password_0" class="control-label"><em style="color: red;">*</em>密码:</label>
+                <input id="password_0" name="password" type="text" class="form-control" placeholder="密码不能超过15位" >
+              </div>
+              <div class="form-group">
+                <label for="name_0" class="control-label"><em style="color: red;">*</em>姓名:</label>
+                <input id="name_0" name="name" type="text" class="form-control" placeholder="姓名不能超过10个汉字">
+              </div>
+              <div class="form-group">
+                <label for="telephone_0" class="control-label"><em style="color: red;">*</em>电话号码:</label>
+                <input id="telephone_0" name="telephone" type="text" class="form-control" >
+              </div>
+              <div class="form-group">
+                <label for="identity_0" class="control-label"><em style="color: red;">*</em>所属角色:</label>
+                <select class="form-control" id="identity_0" name="identity">
+                  <option>管理员</option>
+                  <option>教研室主任</option>
+                  <option>老师</option>
+                  <option>学生</option>
+                </select>
+              </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-primary" id="btn_save">保存</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+      <!--修改用户-->
+      <div class="modal" id="updatemymodal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">修改</h4>
+            </div>
+            <div class="modal-body">
+                  <input id="uid" name="uid" type="text" hidden>
+                <div class="form-group">
+                  <label  for="username_1" class="control-label"><em style="color: red;">*</em>账号:</label>
+                  <input  id="username_1" name="username" type="text" class="form-control" readonly="readonly" >
+                </div>
+                <div class="form-group">
+                  <label for="password_1" class="control-label"><em style="color: red;">*</em>密码:</label>
+                  <input  id="password_1" name="password" type="text" class="form-control" >
+                </div>
+                <div class="form-group">
+                  <label for="name_1" class="control-label"><em style="color: red;">*</em>姓名:</label>
+                  <input id="name_1" name="name" type="text" class="form-control" >
+                </div>
+                <div class="form-group">
+                  <label for="telephone_1" class="control-label"><em style="color: red;">*</em>电话号码:</label>
+                  <input id="telephone_1" name="telephone" type="text" class="form-control" >
+                </div>
+                <div class="form-group">
+                  <label  for="identity_1" class="control-label"><em style="color: red;">*</em>所属角色:</label>
+                  <select id="identity_1" class="form-control"  name="identity">
+                    <option>管理员</option>
+                    <option>教研室主任</option>
+                    <option>老师</option>
+                    <option>学生</option>
+                  </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-primary" id="btn_save2" >修改</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="tile">
+            <div class="tile-body">
+              <div class="table-responsive">
+                <table class="table table-hover table-bordered" id="sampleTable">
+                  <thead>
+                    <tr>
+                      <th>账号</th>
+                      <th>密码</th>
+                      <th>姓名</th>
+                      <th>电话号码</th>
+                      <th>所属角色</th>
+                      <th style="width: 80px">操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="user:${users}">
+                      <td th:text="${user.username}"></td>
+                      <td th:text="${user.password}"></td>
+                      <td th:text="${user.name}"></td>
+                      <td th:text="${user.telephone}"></td>
+                      <td th:text="${user.identity}"></td>
+                      <td>
+                        <button type="button" class="btn-sm btn-primary " th:onclick="'javascript:query('+${user.uid}+');'">编辑</button>
+                        <button type="button" class="btn-sm btn-danger " th:onclick="'javascript:delete_1('+${user.uid}+');'">删除</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Essential javascripts for application to work-->
+    <script src="js/jquery-3.3.1.min.js" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+    <script src="js/popper.min.js" th:src="@{/static/js/popper.min.js}"></script>
+    <script src="js/bootstrap.min.js" th:src="@{/static/js/bootstrap.min.js}"></script>
+    <script src="js/main.js" th:src="@{/static/js/main.js}"></script>
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="js/plugins/pace.min.js" th:src="@{/static/js/plugins/pace.min.js}"></script>
+    <!-- Page specific javascripts-->
+    <!-- Data table plugin-->
+    <script type="text/javascript"  th:src="@{/static/js/plugins/jquery.dataTables.min.js}"></script>
+    <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js" th:src="@{/static/js/plugins/dataTables.bootstrap.min.js}"></script>
+    <script type="text/javascript" th:inline="javascript">
+      $(document).ready(function() {
+        $('#sampleTable').dataTable( {
+          "oLanguage": {
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+              "sFirst": "首页",
+              "sPrevious": "上页",
+              "sNext": "下页",
+              "sLast": "末页"
+            },
+            "oAria": {
+              "sSortAscending": ": 以升序排列此列",
+              "sSortDescending": ": 以降序排列此列"
+            }
+          }
+        } );
+      } );
+
+      $(function(){
+        $("#btn_add").click(function(){
+          $("#insertmymodal").modal('show');
+        });
+        $("#btn_save").click(function (){
+          var username = $("#username_0").val();
+          var password = $("#password_0").val();
+          var name = $("#name_0").val();
+          var telephone = $("#telephone_0").val();
+          var identity = $("#identity_0").val();
+          $.ajax({
+            type:"post",
+            url:"insertUser",
+            dataType:"json",
+            data:{username:username,password:password,name:name,telephone:telephone,identity:identity},
+            success:function(data){
+              if(data == 0){
+                alert("账号不能为空！！！");
+              }else if (data == 1){
+                alert("密码不能为空！！！");
+              }else if (data == 2){
+                alert("姓名不能为空！！！");
+              } else if(data == 3){
+                alert("手机号码规定为11位！！！");
+              } else if (data==5){
+                alert("账号已经存在，请重新输入！！！");
+              } else if (data==6){
+                alert("账号输入不合法，请重新输入！！！");
+              }else if (data==7){
+                alert("密码超过15位，请重新输入！！！");
+              }else if (data==8){
+                alert("姓名超过10个汉字，请重新输入！！！");
+              }else if (data == 4) {
+                alert("添加成功！！！");
+                window.location.href = "findUserAll"
+              }
+            }
+          })
+        })
+      })
+
+      function query(uid) {
+          $.ajax({
+            type:"get",
+            url:"findUserById",
+            dataType:"json",
+            data:{uid:uid},
+            success:function (data) {
+              $("#uid").val(data[0].uid);
+              $("#username_1").val(data[0].username);
+              $("#password_1").val(data[0].password);
+              $("#name_1").val(data[0].name);
+              $("#telephone_1").val(data[0].telephone);
+              $("#identity_1").val(data[0].identity);
+              $("#updatemymodal").modal('show');
+                  }
+                });
+            }
+        $("#btn_save2").click(function() {
+          var uid = $("#uid").val();
+          var username = $("#username_1").val();
+          var password = $("#password_1").val();
+          var name = $("#name_1").val();
+          var telephone = $("#telephone_1").val();
+          var identity = $("#identity_1").val()
+          $.ajax({
+            type:"put",
+            url:"updateUser",
+            dataType:"json",
+            data:{uid:uid,username:username,password:password,name:name,telephone:telephone,identity:identity},
+            success:function(data){
+              if(data == 0){
+                alert("账号不能为空！！！");
+              }else if (data == 1){
+                alert("密码不能为空！！！");
+              }else if (data == 2){
+                alert("姓名不能为空！！！");
+              } else if(data == 3){
+                alert("手机号码规定为11位！！！");
+              }else if(data == 5){
+                alert("密码超过15位，请重新输入！！！");
+              }else if(data == 6){
+                alert("姓名超过10个汉字，请重新输入！！！");
+              }else if (data == 4) {
+                alert("修改成功！！！");
+                window.location.href = "findUserAll"
+              }
+            }
+          })
+        })
+
+      function delete_1(uid) {
+        if (confirm("确定要删除该记录吗？")) {
+          $.ajax({
+            type: "delete",
+            url: "deleteUser",
+            dataType: "json",
+            data: {uid: uid},
+            success: function () {
+              alert("删除成功！");
+              window.location.reload();
+            }
+          });
+        }
+      }
+
+
+    </script>
+    <!-- 谷歌分析script-->
+    <script type="text/javascript">
+      if(document.location.hostname == 'pratikborsadiya.in') {
+      	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      	ga('create', 'UA-72504830-1', 'auto');
+      	ga('send', 'pageview');
+      }
+    </script>
+  </body>
+</html>

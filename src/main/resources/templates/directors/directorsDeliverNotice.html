@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <!-- Twitter meta-->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:site" content="@pratikborsadiya">
+    <meta property="twitter:creator" content="@pratikborsadiya">
+    <!-- Open Graph Meta-->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Vali Admin">
+    <meta property="og:title" content="Vali - Free Bootstrap 4 admin theme">
+    <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
+    <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
+    <meta property="og:description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <title>软件工程教研室工作管理系统</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="css/main.css" th:href="@{/static/css/main.css}">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="app sidebar-mini">
+<!-- Navbar-->
+<header class="app-header"><a class="app-header__logo" href="">RJGCJYS</a>
+    <!-- 边栏切换按钮,隐藏或展示边栏--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+    <!-- Navbar Right Menu-->
+    <ul class="app-nav">
+        <li class="app-search">
+            <input class="app-search__input" type="search" placeholder="Search">
+            <button class="app-search__button"><i class="fa fa-search"></i></button>
+        </li>
+        <!-- User Menu-->
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+            <ul class="dropdown-menu settings-menu dropdown-menu-right">
+                <li><a class="dropdown-item" href="../tem/page-user.html" th:href="@{/directorsMain}"><i class="fa fa-cog fa-lg"></i> 设置</a></li>
+                <li><a class="dropdown-item" href="../common/login.html" th:href="@{/tologin}"><i class="fa fa-sign-out fa-lg"></i> 退出登录</a></li>
+            </ul>
+        </li>
+    </ul>
+</header>
+<!-- Sidebar menu-->
+<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+<aside class="app-sidebar">
+    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" th:src="@{/static/images/cityLogo.png}">
+        <div>
+            <p class="app-sidebar__user-name" th:text="${session.user1[0].name}"></p>
+            <p class="app-sidebar__user-designation">欢迎您</p>
+        </div>
+    </div>
+    <ul class="app-menu">
+        <li><a class="app-menu__item" href="/main" th:href="@{/directorsMain}"><i class="app-menu__icon fa fa-home"></i><span class="app-menu__label">主页</span></a></li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-flask"></i><span class="app-menu__label">教学任务管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/toTeachersAddStudy}"><i class="icon fa fa-circle-o"></i>添加教学任务</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/directorsFindTrainAll}"><i class="icon fa fa-circle-o"></i>查看教学任务</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/toDirectorsAddSubject}"><i class="icon fa fa-circle-o"></i>添加课程</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/findSubjectAll}"><i class="icon fa fa-circle-o"></i>查看课程</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-calendar"></i><span class="app-menu__label">教学周历管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/directorsFindWeekByStatus}"><i class="icon fa fa-circle-o"></i>查看待审核教学周历</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/findHaveWeekByStatus}"><i class="icon fa fa-circle-o"></i>查看已经审核教学周历</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-file-powerpoint-o"></i><span class="app-menu__label">教学资料管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/findPPTAll}"><i class="icon fa fa-circle-o"></i>查看教学资料</a></li>
+            </ul>
+        </li>
+        <li class="treeview "><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-book"></i><span class="app-menu__label">学生作业样板管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item " href="#" th:href="@{/findModelAll}"><i class="icon fa fa-circle-o"></i>查看待审核作业样板</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/findModelByStatus}"><i class="icon fa fa-circle-o"></i>查看已经审核作业样板</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-exchange"></i><span class="app-menu__label">调课申请管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/directorsFindLeave}"><i class="icon fa fa-circle-o"></i>查看待审核调课申请</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/directorsFindHaveLeave}"><i class="icon fa fa-circle-o"></i>查看已经审核调课申请</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-handshake-o"></i><span class="app-menu__label">互评管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/directorsLookMutual}"><i class="icon fa fa-circle-o"></i>教研室主任年度评分</a></li>
+            </ul>
+        </li>
+        <li class="treeview is-expanded"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-bullhorn"></i><span class="app-menu__label">通知管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item active" href="#" th:href="@{/deliverNotice}"><i class="icon fa fa-circle-o"></i>发布通知</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/findNoticeAll}"><i class="icon fa fa-circle-o"></i>查看通知</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">会议管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/findMeetingAll}"><i class="icon fa fa-circle-o"></i>查看会议记录</a></li>
+            </ul>
+        </li>
+    </ul>
+</aside>
+<main class="app-content">
+    <div class="app-title">
+        <div>
+            <h1>软件工程教研室工作管理系统</h1>
+            <p>教研室主任用于发布通知</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="form-group">
+                    <label class="col-form-label" for="title"><em style="color: red;">*</em>标题</label>
+                    <input class="form-control" id="title" name="title" type="text">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="name">发布人</label>
+                    <input class="form-control" id="name" name="name" type="text" readonly="readonly" th:value="${session.user1[0].name}">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="notice"><em style="color: red;">*</em>发布内容</label>
+                    <input class="form-control" id="notice" name="notice" hidden>
+                    <div id="summernote" name="summernote"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="deliverDate"><em style="color: red;">*</em>发布日期</label>
+                    <input class="form-control" id="deliverDate" name="deliverDate" type="date">
+                </div>
+                <div class="tile-footer">
+                    <button class="btn btn-primary" id="insertNotice">发布</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<!-- Essential javascripts for application to work-->
+<script src="js/jquery-3.3.1.min.js" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+<script src="js/popper.min.js" th:src="@{/static/js/popper.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/static/js/bootstrap.min.js}"></script>
+<script src="js/main.js" th:src="@{/static/js/main.js}"></script>
+<script  src="js/jquery-form.js" th:src="@{/static/js/jquery-form.js}"></script>
+<script src="js/plugins/pace.min.js" th:src="@{/static/js/plugins/pace.min.js}"></script>
+<!-- Page specific javascripts-->
+<!-- Data table plugin-->
+<script type="text/javascript"  th:src="@{/static/js/plugins/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js" th:src="@{/static/js/plugins/dataTables.bootstrap.min.js}"></script>
+<!-- include summernote -->
+<link type="text/css" rel="stylesheet" href="${ctx}/components/summernote/summernote.css" th:href="@{/static/summernote/summernote.css}" />
+<script type="text/javascript" src="${ctx}/components/summernote/summernote.js" th:src="@{/static/summernote/summernote.js}"></script>
+<script type="text/javascript" src="${ctx}/components/summernote/lang/summernote-zh-CN.js" th:src="@{/static/summernote/summernote-zh-CN.js}"></script>
+<script type="text/javascript"  th:href="@{/static/css/bootstrap.css}"></script>
+<script type="text/javascript" th:inline="javascript">
+</script>
+<!-- 谷歌分析script-->
+<script type="text/javascript">
+    if(document.location.hostname == 'pratikborsadiya.in') {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-72504830-1', 'auto');
+        ga('send', 'pageview');
+    }
+</script>
+<script type="text/javascript" th:inline="javascript">
+    //summernote编译器的加载配置
+    $("#summernote").summernote({
+        lang : 'zh-CN',// 语言
+        height : 400, // 高度
+        minHeight : 300, // 最小高度
+        placeholder : '请输入通知内容,内容不能超过1000字', // 提示
+        // summernote自定义配置
+        toolbar: [
+            ['operate', ['undo','redo']],
+            ['magic',['style']],
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['para', ['height','fontsize','ul', 'ol', 'paragraph']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['color', ['color']],
+            ['layout',['fullscreen','codeview']],
+        ],
+    });
+
+    //获取当天日期
+    $(document).ready(function () {
+        var time = new Date();
+        var day = ("0" + time.getDate()).slice(-2);
+        var month = ("0" + (time.getMonth() + 1)).slice(-2);
+        var today = time.getFullYear() + "-" + (month) + "-" + (day);
+        $('#deliverDate').val(today);
+    });
+    //时间的限定
+    $(function(){
+        //得到当前时间
+        var date_now = new Date();
+        //得到当前年份
+        var year = date_now.getFullYear();
+        //得到当前月份
+        //注：
+        //  1：js中获取Date中的month时，会比当前月份少一个月，所以这里需要先加一
+        //  2: 判断当前月份是否小于10，如果小于，那么就在月份的前面加一个 '0' ， 如果大于，就显示当前月份
+        var month = date_now.getMonth()+1 < 10 ? "0"+(date_now.getMonth()+1) : (date_now.getMonth()+1);
+        //得到当前日子（多少号）
+        var date = date_now.getDate() < 10 ? "0"+date_now.getDate() : date_now.getDate();
+        //设置input标签的max属性
+        $("#deliverDate").attr("max",year+"-"+month+"-"+date);
+    })
+
+    //添加通知发布
+   $(function() {
+       $("#insertNotice").click(function () {
+           var title = $("#title").val();
+           var name = $("#name").val();
+           var str= $("#summernote").summernote("code");
+           var notice = str;
+           var deliverDate = $("#deliverDate").val();
+           if (title.length > 30){
+               alert("标题输入不能超过30个文字");
+               return false;
+           }else if(notice.length > 11000){
+               alert("通知内容超过1000字限定");
+               return false;
+           }
+           $.ajax({
+               type:"post",
+               url:"insertNotice",
+               dataType:"json",
+               data:{title:title,name:name,notice:notice,deliverDate:deliverDate},
+               success:function (data) {
+                 if(data == 1){
+                    alert("标题不能为空,请输入标题!!!");
+                 }else if(data == 2){
+                     alert("发布的内容不能为空,请添加内容!!!");
+                 }else if (data == 3){
+                     alert("发布的日期格式不对,请重新输入日期!!!");
+                 } else if(data == 4){
+                     alert("发布通知成功!!!");
+                     window.location.reload();
+                 }
+               }
+           })
+       });
+   })
+
+    // $(function () {
+    //     $("#insertNotice").click(function (){
+    //         var title = $("#title").val();
+    //         alert(title.length);
+    //     })
+    // })
+</script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <!-- Twitter meta-->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:site" content="@pratikborsadiya">
+    <meta property="twitter:creator" content="@pratikborsadiya">
+    <!-- Open Graph Meta-->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Vali Admin">
+    <meta property="og:title" content="Vali - Free Bootstrap 4 admin theme">
+    <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
+    <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
+    <meta property="og:description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <title>软件工程教研室工作管理系统</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="css/main.css" th:href="@{/static/css/main.css}">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="app sidebar-mini">
+<!-- Navbar-->
+<header class="app-header"><a class="app-header__logo" href="">RJGCJYS</a>
+    <!-- 边栏切换按钮,隐藏或展示边栏--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+    <!-- Navbar Right Menu-->
+    <ul class="app-nav">
+        <li class="app-search">
+            <input class="app-search__input" type="search" placeholder="Search">
+            <button class="app-search__button"><i class="fa fa-search"></i></button>
+        </li>
+        <!-- User Menu-->
+        <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
+            <ul class="dropdown-menu settings-menu dropdown-menu-right">
+                <li><a class="dropdown-item" href="../tem/page-user.html" th:href="@{/directorsMain}"><i class="fa fa-cog fa-lg"></i> 设置</a></li>
+                <li><a class="dropdown-item" href="../common/login.html" th:href="@{/tologin}"><i class="fa fa-sign-out fa-lg"></i> 退出登录</a></li>
+            </ul>
+        </li>
+    </ul>
+</header>
+<!-- Sidebar menu-->
+<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+<aside class="app-sidebar">
+    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" th:src="@{/static/images/cityLogo.png}">
+        <div>
+            <p class="app-sidebar__user-name" th:text="${session.user1[0].name}"></p>
+            <p class="app-sidebar__user-designation">欢迎您</p>
+        </div>
+    </div>
+    <ul class="app-menu">
+        <li><a class="app-menu__item" href="/main" th:href="@{/directorsMain}"><i class="app-menu__icon fa fa-home"></i><span class="app-menu__label">主页</span></a></li>
+        <li class="treeview is-expanded"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-flask"></i><span class="app-menu__label">教学任务管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/toTeachersAddStudy}"><i class="icon fa fa-circle-o"></i>添加教学任务</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/directorsFindTrainAll}"><i class="icon fa fa-circle-o"></i>查看教学任务</a></li>
+                <li><a class="treeview-item active" href="#" th:href="@{/toDirectorsAddSubject}"><i class="icon fa fa-circle-o"></i>添加课程</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/findSubjectAll}"><i class="icon fa fa-circle-o"></i>查看课程</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-calendar"></i><span class="app-menu__label">教学周历管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/directorsFindWeekByStatus}"><i class="icon fa fa-circle-o"></i>查看待审核教学周历</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/findHaveWeekByStatus}"><i class="icon fa fa-circle-o"></i>查看已经审核教学周历</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-file-powerpoint-o"></i><span class="app-menu__label">教学资料管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/findPPTAll}"><i class="icon fa fa-circle-o"></i>查看教学资料</a></li>
+            </ul>
+        </li>
+        <li class="treeview "><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-book"></i><span class="app-menu__label">学生作业样板管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item " href="#" th:href="@{/findModelAll}"><i class="icon fa fa-circle-o"></i>查看待审核作业样板</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/findModelByStatus}"><i class="icon fa fa-circle-o"></i>查看已经审核作业样板</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-exchange"></i><span class="app-menu__label">调课申请管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/directorsFindLeave}"><i class="icon fa fa-circle-o"></i>查看待审核调课申请</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/directorsFindHaveLeave}"><i class="icon fa fa-circle-o"></i>查看已经审核调课申请</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-handshake-o"></i><span class="app-menu__label">互评管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/directorsLookMutual}"><i class="icon fa fa-circle-o"></i>教研室主任年度评分</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-bullhorn"></i><span class="app-menu__label">通知管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/deliverNotice}"><i class="icon fa fa-circle-o"></i>发布通知</a></li>
+                <li><a class="treeview-item" href="#" th:href="@{/findNoticeAll}"><i class="icon fa fa-circle-o"></i>查看通知</a></li>
+            </ul>
+        </li>
+        <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-edit"></i><span class="app-menu__label">会议管理</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+            <ul class="treeview-menu">
+                <li><a class="treeview-item" href="#" th:href="@{/findMeetingAll}"><i class="icon fa fa-circle-o"></i>查看会议记录</a></li>
+            </ul>
+        </li>
+    </ul>
+</aside>
+<main class="app-content">
+    <div class="app-title">
+        <div>
+            <h1>软件工程教研室工作管理系统</h1>
+            <p>教研室主任添加课程</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <form th:action="@{/insertSubject}" method="post" id="insertSubject">
+                    <div class="form-inline">
+                        <label class="form-inline" for="username"><em style="color: red;">*</em>教&nbsp;&nbsp;&nbsp;工&nbsp;&nbsp;&nbsp;号：<input class="form-control" id="username" name="username" type="text" th:value="${session.user1[0].username}" readonly="readonly"></label>
+                        <label class="form-inline" for="code" style="margin:0 10px"><em style="color: red;">*</em>课程代码：  <select class="form-control" id="code" name="code" style="width: 170px" >
+                            <option value="">全部</option>
+                            <option th:each="train:${trains}"  th:text="${train.code}"></option>
+                        </select></label>
+                        <label class="form-inline" for="sclass" style="margin:0 10px"><em style="color: red;">*</em>课程名称：<input class="form-control" id="sclass" name="sclass" type="text" style="width: 290px"></label>
+                        <label class="form-inline" for="name"><em style="color: red;">*</em>教师姓名：<input class="form-control" id="name" name="name" type="text" style="width: 170px"></label>
+                    </div><br/>
+                    <div class="form-inline">
+                        <label class="form-inline" for="subjectTime"><em style="color: red;">*</em>上课时间：<input class="form-control" id="subjectTime" name="subjectTime" type="text" style="width: 550px"></label>
+                        <label class="form-inline" for="subjectPlace" style="margin:0 10px"><em style="color: red;">*</em>上课地点：<input class="form-control" id="subjectPlace" name="subjectPlace" type="text" style="width: 455px"></label>
+                    </div><br/>
+                    <div class="form-inline">
+                        <label class="form-inline" for="nature"><em style="color: red;">*</em>课程性质：<select class="form-control" id="nature" name="nature">
+                            <option>必选</option>
+                            <option>限选</option>
+                        </select></label>
+                        <label class="form-inline" for="credit" style="margin:0 10px"><em style="color: red;">*</em>学分：<input class="form-control" id="credit" name="credit" type="number" style="width: 80px"></label>
+                        <label class="form-inline" for="assessment" style="margin:0 10px"><em style="color: red;">*</em>考核方式：<select class="form-control" id="assessment" name="assessment">
+                            <option>考试</option>
+                            <option>考查</option>
+                        </select></label>
+                        <label class="form-inline" for="totaltime" style="margin:0 10px"><em style="color: red;">*</em>总学时：<input class="form-control" id="totaltime" name="totaltime" type="number" style="width: 80px"></label>
+                        <label class="form-inline" for="lecturetime" style="margin:0 10px"><em style="color: red;">*</em>讲课学时：<input class="form-control" id="lecturetime" name="lecturetime" type="number" style="width: 80px"></label>
+                        <label class="form-inline" for="experimenttime" style="margin:0 10px"><em style="color: red;">*</em>实验学时：<input class="form-control" id="experimenttime" name="experimenttime" type="number" style="width: 80px"></label>
+                        <label class="form-inline" for="computertime" style="margin:0 10px"><em style="color: red;">*</em>上机学时：<input class="form-control" id="computertime" name="computertime" type="number" style="width: 95px"></label>
+                    </div><br/>
+                    <div class="form-inline">
+                        <label class="form-inline" for="number"><em style="color: red;">*</em>班级人数：<input class="form-control" id="number" name="number" type="number" oninput="if( this.value.length > 3 )  this.value = this.value.slice(0,3)" style="width: 80px"></label>
+                        <label class="form-inline" for="college" style="margin:0 10px"><em style="color: red;">*</em>专业所属学院：<input class="form-control" id="college" name="college" type="text" style="width: 200px" th:value="计算机与信息学院"></label>
+                        <label class="form-inline" for="consist" style="margin:0 10px"><em style="color: red;">*</em>教学班组成：<input class="form-control" id="consist" name="consist" type="text" placeholder="示例：财管本2019-1,财管本2019-2" style="width: 588px"></label>
+                    </div><br/>
+                    <div class="tile-footer">
+                        <button class="btn btn-primary" type="submit">上传</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Essential javascripts for application to work-->
+<script src="js/jquery-3.3.1.min.js" th:src="@{/static/js/jquery-3.3.1.min.js}"></script>
+<script src="js/popper.min.js" th:src="@{/static/js/popper.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/static/js/bootstrap.min.js}"></script>
+<script src="js/main.js" th:src="@{/static/js/main.js}"></script>
+<script  src="js/jquery-form.js" th:src="@{/static/js/jquery-form.js}"></script>
+<script src="js/plugins/pace.min.js" th:src="@{/static/js/plugins/pace.min.js}"></script>
+<!-- Page specific javascripts-->
+<!-- Data table plugin-->
+<script type="text/javascript"  th:src="@{/static/js/plugins/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js" th:src="@{/static/js/plugins/dataTables.bootstrap.min.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+</script>
+<!-- 谷歌分析script-->
+<script type="text/javascript">
+    if(document.location.hostname == 'pratikborsadiya.in') {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-72504830-1', 'auto');
+        ga('send', 'pageview');
+    }
+</script>
+<script type="text/javascript" th:inline="javascript">
+    $(function(){
+        $("#insertSubject").bind("submit", function() {
+            var code = $("#code").val();
+            var sclass = $("#sclass").val();
+            var credit = $("#credit").val();
+            var totaltime = $("#totaltime").val();
+            var lecturetime = $("#lecturetime").val();
+            var experimenttime = $("#experimenttime").val();
+            var computertime = $("#computertime").val();
+            var number = $("#number").val();
+            var subjectTime = $("#subjectTime").val();
+            var subjectPlace = $("#subjectPlace").val();
+
+            if (code.length > 10) {
+                alert("课程代码不能超过10位");
+                return false;
+            }else if (sclass.length > 30){
+                alert("课程名字不能超过30位");
+                return false;
+            }else if (credit.length > 4 || totaltime.length > 4|| lecturetime.length >4 || experimenttime.length > 4|| computertime.length >4){
+                alert("学分、总学分、讲课学时、实验学时、上机学时不能超过4位");
+                return false;
+            }else if(number.length > 3){
+                alert("班级人数不能超过3位");
+                return false;
+            }else if(subjectTime.length > 100 ||subjectPlace.length > 100){
+                alert("上课时间和上课地点不能超过100个汉字");
+                return false;
+            }
+        });
+
+        $("#insertSubject").ajaxForm(function(data){
+            if(data=="红星标号数据不能为空"){
+                alert("红星标号为必填项，不能为空！！！");
+            }else if(data=="添加成功"){
+                alert("上传成功！！！");
+                window.location.reload();
+            }
+        });
+    });
+
+    $("#code").bind("change", function () {
+        var code = $("#code").val();
+        $.ajax({
+            type: "get",
+            url: "findTrainByCode",
+            dataType: "json",
+            data: {code: code},
+            success: function (data) {
+                $("#sclass").val(data[0].sclass);
+                $("#name").val(data[0].name);
+                $("#nature").val(data[0].nature);
+                $("#credit").val(data[0].credit);
+                $("#assessment").val(data[0].assessment);
+                $("#totaltime").val(data[0].totaltime);
+                $("#lecturetime").val(data[0].lecturetime);
+                $("#experimenttime").val(data[0].experimenttime);
+                $("#computertime").val(data[0].computertime);
+                $("#college").val(data[0].college);
+                // var tab = $("#sampleTable");
+                // $.each(data, function (name, val) {
+                //     tab.append("<tr>");
+                //     $("<td>" + val.rid + "</td>").appendTo($("#sampleTable"))
+                //     $("<td>" + val.code + "</td>").appendTo($("#sampleTable"))
+                //     $("<td>" + val.sclass + "</td>").appendTo($("#sampleTable"))
+                //     $("<td>" + val.name + "</td>").appendTo($("#sampleTable"))
+                //     $("<td>" + val.nature + "</td>").appendTo($("#sampleTable"))
+                //     $("<td>" + val.credit + "</td>").appendTo($("#sampleTable"))
+                //     $("<td>" + val.assessment + "</td>").appendTo($("#sampleTable"))
+                //     $("<td>" + val.totaltime + "</td>").appendTo($("#sampleTable"))
+                //     $("<td>" + val.lecturetime + "</td>").appendTo($("#sampleTable"))
+                //     $("<td>" + val.experimenttime + "</td>").appendTo($("#sampleTable"))
+                //     $("<td>" + val.computertime + "</td>").appendTo($("#sampleTable"))
+                //     $("<td>" + val.college + "</td>").appendTo($("#sampleTable"))
+                //     $("<td><a onclick='csr()'>选择</a>" + + "</td>").appendTo($("#sampleTable"))
+                }
+        });
+    })
+
+
+</script>
+</body>
+</html>
